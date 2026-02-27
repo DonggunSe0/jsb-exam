@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: jsb-exam
+
+  profiles:
+    active: dev
