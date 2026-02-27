@@ -1,5 +1,3 @@
-
-
 plugins {
 	java
 	id("org.springframework.boot") version "4.0.3"
@@ -33,7 +31,9 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	runtimeOnly ("com.h2database:h2")
 	implementation("org.springframework.boot:spring-boot-h2console")
+	implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
 }
 
 tasks.withType<Test> {
