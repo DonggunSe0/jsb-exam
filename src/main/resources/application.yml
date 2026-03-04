@@ -10,17 +10,20 @@ spring:
       enabled: always
 
   jpa:
-      properties:
-        hibernate:
-          format_sql: true
-          highlight_sql: true
-          use_sql_comments: true
+    properties:
       hibernate:
-        ddl-auto: update
-      show-sql: true
+        format_sql: true
+        highlight_sql: true
+        use_sql_comments: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
-  logging:
-    level:
-      org.hibernate.orm.jdbc.bind: TRACE
-      org.hibernate.orm.jdbc.extract: TRACE
-      org.springframework.transaction.interceptor: TRACE
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.hibernate.orm.jdbc.extract: TRACE
+    org.hibernate.type.descriptor.jdbc: TRACE
+    org.hibernate.type.descriptor.sql: TRACE
+    org.springframework.transaction.interceptor: TRACE
