@@ -2,6 +2,10 @@ spring:
   application:
     name: jsb-exam
 
+  thymeleaf:
+    cache: false
+    prefix: file:src/main/resources/templates/
+
   profiles:
     active: dev
 
