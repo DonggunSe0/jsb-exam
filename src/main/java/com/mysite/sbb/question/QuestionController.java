@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -15,19 +14,12 @@ public class QuestionController {
 
     @GetMapping("/question/list")
     public String list(Model model) {
-        String questions = questionRepository.findAll()
-                .stream()
-                .map(e -> "<li>%s</li>".formatted(e.getSubject()))
-                .collect(Collectors.joining("\n"));
+        List<Question> questionList = questionRepository.findAll();
 
-        String value = "홍길동";
-        List<Integer> list = List.of(1, 2, 3, 4, 5);
+        System.out.println("size=" + questionList.size());
+        questionList.forEach(q -> System.out.println(q.getId() + " / " + q.getSubject()));
 
-        model.addAttribute("value", value);
-        model.addAttribute("list", list);
-
-
-
+        model.addAttribute("questionList", questionList);
         return "question_list";
     }
     }
