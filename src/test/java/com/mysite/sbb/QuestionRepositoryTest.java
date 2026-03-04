@@ -1,5 +1,9 @@
-package com.back;
+package com.mysite.sbb;
 
+import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.answer.AnswerRepository;
+import com.mysite.sbb.question.Question;
+import com.mysite.sbb.question.QuestionRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -129,11 +133,16 @@ class QuestionRepositoryTest {
 
 	@Test
 	@DisplayName("2번 질문의 답변 찾기")
+	//트랜잭션 => DB 작업의 단위
+	@Transactional // => DB 작업이 하나의 트랜잭션으로 묶여서 실행되도록 설정
 	void t10(){
-		Question q2 = questionRepository.findById(2).get();
-		Answer answer = q2.getAnswers().get(0);
+		Question q2 = questionRepository.findById(2).get(); //repository에는 기본적으로 @Transactional이 적용되어있음 (문닫음)
+//		System.out.println("q2.getSubject() = " + q2.getSubject());
+		Answer answer = q2.getAnswers().get(0); // 영업시간 늘리기
+		//answer에서 transactional이 없으면 영업시간이 끝나서 DB 연결이 끊어짐 => LazyInitializationException 발생
+		//왜? Question 엔티티에서 Answer 엔티티를 참조할 때, @OneToMany 어노테이션의 fetch 속성이 LAZY로 설정되어 있기 때문
 
-		System.out.println("answwer = " + answer.getContent());
+		System.out.println("answer = " + answer.getContent());
 	}
 
 }

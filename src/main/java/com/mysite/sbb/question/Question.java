@@ -1,5 +1,6 @@
-package com.back;
+package com.mysite.sbb.question;
 
+import com.mysite.sbb.answer.Answer;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +32,9 @@ public class Question {
     //cascade = CascadeType.PERSIST 옵션은 Question 엔티티가 저장될 때, 해당 Question에 연결된 Answer 엔티티들도 함께 저장되도록 설정
     //fetch = FetchType.EAGER 옵션은 Question 엔티티를 조회할 때, 해당 Question에 연결된 Answer 엔티티들도 함께 조회하도록 설정 18
     //fetch하니까 조인 쿼리가 실행되면서 Question과 연결된 Answer 엔티티들도 함께 조회됨
-    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    //EAGER는 필요한 데이터를 미리 로딩 => 불필요한 경우에도 데이터를 다 가져온다.
+    //LAZY는 필요한 데이터를 나중에 로딩 => 실제로 필요한 경우에만 데이터를 가져온다.
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY , cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     private List<Answer> answers =  new ArrayList<>();
     //Question 엔티티가 생성될 때, answers 필드는 빈 ArrayList로 초기화됩니다.
     //이렇게 하면 Question 객체가 생성될 때마다 answers 리스트가 항상 초기화되어 null이 되는 것을 방지할 수 있습니다.
